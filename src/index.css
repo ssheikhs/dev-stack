@@ -1,0 +1,23 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+:root {
+  /* single source of truth for the brand gradient — orange -> pink -> violet */
+  --brand-gradient: linear-gradient(to right, #f97316, #ec4899, #8b5cf6);
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+}
+
+.text-brand-gradient {
+  background: var(--brand-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.bg-brand-gradient {
+  background: var(--brand-gradient);
+}
