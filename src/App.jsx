@@ -3,6 +3,7 @@ import Navbar from './components/Navbar.jsx'
 import Hero from './components/Hero.jsx'
 import Loading from './components/Loading.jsx'
 import TechGrid from './components/TechGrid.jsx'
+import YourStack from './components/YourStack.jsx'
 
 function App() {
   const [technologies, setTechnologies] = useState([])
@@ -16,6 +17,17 @@ function App() {
       .catch((err) => console.error('Failed to load technologies:', err))
       .finally(() => setLoading(false))
   }, [])
+
+  const addToStack = (tech) => {
+    const alreadyAdded = stack.some((item) => item.id === tech.id)
+
+    if (alreadyAdded) {
+      window.alert(`${tech.name} is already in your stack.`)
+      return
+    }
+
+    setStack((prev) => [...prev, tech])
+  }
 
   return (
     <div className="min-h-screen">
@@ -32,7 +44,13 @@ function App() {
           {loading ? (
             <Loading />
           ) : (
-            <TechGrid technologies={technologies} stack={stack} onAdd={() => {}} />
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
+              <div className="lg:col-span-3">
+                <TechGrid technologies={technologies} stack={stack} onAdd={addToStack} />
+              </div>
+
+              <YourStack stack={stack} onRemove={() => {}} onRemoveAll={() => {}} />
+            </div>
           )}
         </div>
       </section>
