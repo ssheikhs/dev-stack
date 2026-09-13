@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import Navbar from './components/Navbar.jsx'
 import Hero from './components/Hero.jsx'
 import Loading from './components/Loading.jsx'
@@ -22,11 +24,23 @@ function App() {
     const alreadyAdded = stack.some((item) => item.id === tech.id)
 
     if (alreadyAdded) {
-      window.alert(`${tech.name} is already in your stack.`)
+      toast.warn(`${tech.name} is already in your stack.`)
       return
     }
 
     setStack((prev) => [...prev, tech])
+    toast.success(`${tech.name} added to your stack.`)
+  }
+
+  const removeFromStack = (id) => {
+    const item = stack.find((tech) => tech.id === id)
+    setStack((prev) => prev.filter((tech) => tech.id !== id))
+    if (item) toast.info(`${item.name} removed from your stack.`)
+  }
+
+  const removeAll = () => {
+    setStack([])
+    toast.info('All technologies removed from your stack.')
   }
 
   return (
@@ -49,11 +63,13 @@ function App() {
                 <TechGrid technologies={technologies} stack={stack} onAdd={addToStack} />
               </div>
 
-              <YourStack stack={stack} onRemove={() => {}} onRemoveAll={() => {}} />
+              <YourStack stack={stack} onRemove={removeFromStack} onRemoveAll={removeAll} />
             </div>
           )}
         </div>
       </section>
+
+      <ToastContainer position="bottom-right" autoClose={2500} />
     </div>
   )
 }
