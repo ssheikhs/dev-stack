@@ -4,7 +4,7 @@ Dev Stack is a React app that helps developers plan out a project's tech stack b
 
 ## Live Demo & Repository
 
-- Live Site: _add your deployed link here_
+- Live Site: https://dev-stack-puce.vercel.app
 - GitHub Repository: https://github.com/ssheikhs/dev-stack
 
 ## Tech Stack
